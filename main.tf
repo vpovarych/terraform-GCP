@@ -59,7 +59,14 @@ resource "google_compute_instance" "jenkins" {
   EOT
 
   tags = ["jenkins-server"]
+
+  lifecycle {
+    ignore_changes = [
+      metadata_startup_script,
+    ]
+  }
 }
+
 
 # Правило файрвола для доступа к веб-интерфейсу Jenkins (порт 8080)
 resource "google_compute_firewall" "jenkins_web" {
